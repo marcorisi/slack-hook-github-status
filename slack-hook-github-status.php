@@ -4,10 +4,16 @@
 
   // retrieve slack hook params
   $token = isset($_POST['token']) ? $_POST['token'] : null;
+  $user_id = isset($_POST['user_id']) ? $_POST['user_id'] : null;
 
   // validate request
   if (SLACK_TOKEN !== $token) {
     die('Invalid token');
+  }
+
+  // validate user whitelist
+  if (CHECK_USER_ID_WHITELIST && !in_array($user_id, $user_id_whitelist)) {
+    die('Cannot authorize hook');
   }
 
   // initialize curl for performing request to GitHub status API
