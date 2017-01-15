@@ -1,5 +1,15 @@
 <?php
 
+  include 'config.php';
+
+  // retrieve slack hook params
+  $token = isset($_POST['token']) ? $_POST['token'] : null;
+
+  // validate request
+  if (SLACK_TOKEN !== $token) {
+    die('Invalid token');
+  }
+
   // initialize curl for performing request to GitHub status API
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -21,4 +31,4 @@
     echo "GitHub status is: " . $gh_status . "\nLast update: " . $seconds_ago . " seconds ago";
   }
 
-?>
+ ?>
