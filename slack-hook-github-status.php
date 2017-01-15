@@ -25,12 +25,11 @@
   $response = curl_exec($curl);
   curl_close($curl);
 
-  // parse json response
-  $response = json_decode($response, true);
-
   if ( !$response ) {
     echo "Could not reach GitHub Status API";
   } else {
+    // parse json response
+    $response = json_decode($response, true);
     $gh_status = $response['status'];
     $gh_last_updated = $response['last_updated'];
     $seconds_ago = strtotime('now') - strtotime($gh_last_updated);
